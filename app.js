@@ -1,22 +1,23 @@
-const express = require('express')
-const handlebars= require('express-handlebars')
-const bodyParser = require('body-parser')
-const app = express()
-const mongoose = require('mongoose')
+const express = require('express');
+const app = express();
+const handlebars= require('express-handlebars');
+const bodyParser = require('body-parser');
 
-
+//const mongoose = require('mongoose');
+// arquivo necessario para falar para o express onde esta as rotas
+const admin = require('./routes/route-admin');
 
 // Configurações
- // Body Parser
-    app.use(bodyParser.urlencoded({extended:true}))
-    app.use(bodyParser.json())
+ 
 
     // Handlebars
-        app.engine('handlebars', handlebars({defaultLayout: 'main'}))
-        app.set('view engine', 'handlebars')
+    app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}));
+    app.set('view engine', 'handlebars');
 
 
 // Rotas
+
+   app.use('/admin', admin)
 
 const port = 8081
 
