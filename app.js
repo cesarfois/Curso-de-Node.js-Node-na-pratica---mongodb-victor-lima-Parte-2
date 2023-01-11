@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 //const mongoose = require('mongoose');
 // arquivo necessario para falar para o express onde esta as rotas
 const admin = require('./routes/route-admin');
+const path = require('path')
 
 // Configurações
  
@@ -14,6 +15,8 @@ const admin = require('./routes/route-admin');
     app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}));
     app.set('view engine', 'handlebars');
 
+    // Public
+    app.use(express.static(path.join(__dirname,'/public')))
 
 // Rotas
 
