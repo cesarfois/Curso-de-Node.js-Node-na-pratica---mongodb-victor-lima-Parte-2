@@ -15,8 +15,14 @@ router.get ('/posts', (req, res) => {
 })
 
 router.get('/categorias', (req, res) => {
-    res.send('Pagina de categorias')
+    res.render("admin/categorias")
 })
+
+
+router.get('/categorias/add', (req, res) => {
+    res.render('admin/addcategorias')
+})
+
 
 
 
