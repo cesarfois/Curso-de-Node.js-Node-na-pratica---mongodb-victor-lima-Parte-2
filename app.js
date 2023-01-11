@@ -11,12 +11,16 @@ const mongoose = require('mongoose')
 
 // Configurações
  
+    // Body Parser
+    app.use(bodyParser.urlencoded({extended: true}))
+    app.use(bodyParser.json())
 
     // Handlebars
     app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}));
     app.set('view engine', 'handlebars');
 
     // Moongoose
+      mongoose.set('strictQuery', false);
       mongoose.Promise = global.Promise;
       mongoose.connect('mongodb+srv://fois2010:Siexpre$$@cluster0.9e3ejn1.mongodb.net/?retryWrites=true&w=majority').then(() => {
          console.log('Conectado a MongoDB com sucesso')
