@@ -8,9 +8,25 @@ const bodyParser = require('body-parser');
 const admin = require('./routes/route-admin');
 const path = require('path')
 const mongoose = require('mongoose')
+const session = require('express-session')
+const flash = require('connect-flash')
 
 // Configurações
- 
+   //Sessão
+   
+    app.use(session({
+      secret: 'cursodenoderqerelwkrjlkajsdf',
+      resave:true,
+      saveUninitialized: true
+    }))
+    app.use(flash())
+    //Middleware
+    app.use((req, res, next) => {
+      res.locals.sucess_msg = req.flash('sucess_msg')
+      res.locals.error_msg = req.flash('erro_msg')
+      next()
+    })
+
     // Body Parser
     app.use(bodyParser.urlencoded({extended: true}))
     app.use(bodyParser.json())
