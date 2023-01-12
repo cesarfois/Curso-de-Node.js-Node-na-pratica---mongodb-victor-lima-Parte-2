@@ -17,7 +17,12 @@ router.get ('/posts', (req, res) => {
 })
 
 router.get('/categorias', (req, res) => {
-    res.render("admin/categorias")
+    Categoria.find().sort({date: 'desc'}).lean().then((categorias) => {
+        res.render("admin/categorias", {categorias: categorias})
+    }).catch((error) => {
+        req.flash('error_msg', 'Houve um erro ao listar as Categorias')
+        res.redirect('/admin')
+    })
 })
 
 
