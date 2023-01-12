@@ -26,17 +26,46 @@ router.get('/categorias/add', (req, res) => {
 })
 
 router.post('/categorias/nova', (req, res) => {
-    const novaCategoria = {
-        nome: req.body.nome,
-        slug: req.body.slug
-    }
-    new Categoria(novaCategoria).save().then(() => {
-        console.log('Categoria Adicionada com Sucesso')
-    }).catch((error) => {
-        console.log("Falha ao salvar Categoria" + error)
-    })
-})
 
+     // Validação dos Formulários
+
+     var erros = []
+
+     if(!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
+        erros.push({texto: 'Nome Inválido'})
+     }
+
+     if(!req.body.slug || typeof req.body.slug == undefined || req.body.slug == null) {
+        erros.push({texto: 'Slug Inválido'})
+     }
+
+     if(req.body.nome.length < 2){
+        erros.push({ texto: 'Nome da categoria muito pequeno'})
+     }
+     
+     if(erros.length > 0){
+        res.render('admin/addcategorias', {erros: erros})
+     } else{
+        const novaCategoria = {
+            nome: req.body.nome,
+            slug: req.body.slug
+        }
+        new Categoria(novaCategoria).save().then(() => {
+            req.flash("success_msg", "Categoria adcionada com sucesso")
+            //console.log('Categoria Adicionada com Sucesso')
+            res.redirect("/admin/categorias")
+        }).catch((error) => {
+            req.flash("error_msg", "Houve um erro ao salvar a categoria, tente novamente")
+            res.redirect('/admin')
+        })
+    }
+})
+    
+        
+     
+
+
+    
 
 // devemos exportar o router para usar em outros locais
 module .exports = router
