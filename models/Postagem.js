@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const Postagem = new Schema ({
@@ -29,4 +29,5 @@ const Postagem = new Schema ({
     }
 })
 
-mongosse.model("postagens", Postagem)
+
+module.exports = mongoose.model("postagens", Postagem)
