@@ -106,7 +106,21 @@ router.post("/categorias/deletar", (req,res) => {
         res.redirect("/admin/categorias")
     })
 })
+
+
+router.get("/postagens", (req, res) => {
+    res.render('admin/postagens')
+})
+
+router.get("/postagens/add", (req, res) => {
+    Categoria.find().lean().then((categorias) => {
+        res.render('admin/addpostagens', {categorias: categorias})
+    }).catch((err) => {
+        req.flash('error_msg', "Houve um erro ao carregar o formulario")
+        res.redirect('/admin')
+    })
     
+})
 
 
     
