@@ -208,5 +208,18 @@ router.post('/postagens/edit', (req, res) => {
     })
 })
 
+router.get("/postagens/deletar/:id", (req, res) => {
+    Postagem.remove({_id: req.params.id}).then(() => {
+        req.flash('success_msg', "Postagem deletada com sucesso!")
+        res.redirect("/admin/postagens")
+
+    }).catch((erro) => {
+        req.flash('error_msg', "Houve um erro Interno")
+        res.redirect('/admin/postagens')
+    })
+
+    
+})
+
 // devemos exportar o router para usar em outros locais
 module .exports = router
